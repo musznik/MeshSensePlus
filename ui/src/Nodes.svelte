@@ -164,12 +164,14 @@
               <div title={new Date(node.lastHeard * 1000).toLocaleString()} class="h-7 text-sm font-normal min-w-10 bg-black/20 rounded p-1 text-center">{unixSecondsTimeAgo(node.lastHeard)}</div>
             {/key}
 
-            <!-- Voltage -->
-            <div title="Voltage" class="text-sm font-normal bg-black/20 rounded p-1 w-10 h-7 text-center">
-              {(node.deviceMetrics?.voltage || 0).toFixed(1)}V
+            <!-- CHANUTIL -->
+            <div title="channelUtilization" class="text-sm font-normal bg-black/20 rounded p-1 w-15 h-7 text-center">
+              {(Math.round(node.deviceMetrics?.channelUtilization,2) || 0) }% / {(Math.round(node.deviceMetrics?.airUtilTx,2) || 0) }%
             </div>
+
             <!-- Battery -->
             <div title="Battery Level" class="text-sm font-normal bg-black/20 rounded p-1 min-w-11 h-7 text-center">
+              {(node.deviceMetrics?.voltage || 0).toFixed(1)}V / 
               {#if node.deviceMetrics?.batteryLevel === 101}
                 <!-- device using external power -->
                 ⚡︎
